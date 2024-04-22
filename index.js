@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const config = require("./config/config");
 const postRoutes = require("./routes/postRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 
 const app = express();
 
@@ -25,6 +26,7 @@ const startServer = async () => {
   try {
     await connectToDatabase();
     app.use("/", postRoutes);
+    app.use("/", commentRoutes);
     app.listen(config.port, () => {
       console.log(`Server is running on port ${config.port}.`);
     });
