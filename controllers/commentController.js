@@ -2,8 +2,7 @@ const commentService = require("../services/commentService");
 
 exports.createComment = async (req, res) => {
   try {
-    const { postId, comment } = req.body;
-    const newComment = await commentService.createComment(postId, comment);
+    const newComment = await commentService.createComment(req.body);
     res.status(201).json(newComment);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
