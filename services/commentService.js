@@ -1,12 +1,13 @@
 const commentModel = require("../models/commentModel");
 
-exports.createComment = async (commentData) => {
+exports.createComment = async (postId, commentData) => {
   try {
-    return await commentModel.create(commentData);
+    return await Comment.create({ ...commentData, postId });
   } catch (error) {
     throw error;
   }
 };
+
 
 exports.getAllComments = async () => {
   try {
