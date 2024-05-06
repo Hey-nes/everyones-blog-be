@@ -8,9 +8,10 @@ exports.createComment = async (commentData) => {
   }
 };
 
-exports.getAllComments = async () => {
+exports.getAllComments = async (postId) => {
   try {
-    return await commentModel.find();
+    const comments = await commentModel.find({ postId });
+    return comments;
   } catch (error) {
     throw error;
   }

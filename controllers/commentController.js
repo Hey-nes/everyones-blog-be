@@ -11,7 +11,8 @@ exports.createComment = async (req, res) => {
 
 exports.getAllComments = async (req, res) => {
   try {
-    const comments = await commentService.getAllComments();
+    const { postId } = req.query;
+    const comments = await commentService.getAllComments(postId);
     res.json(comments);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
