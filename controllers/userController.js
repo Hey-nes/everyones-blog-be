@@ -16,7 +16,17 @@ exports.registerUser = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+
+    const token = jwt.sign(
+      {
+        userId: savedUser._id,
+        isAdmin: savedUser.isAdmin,
+      },
+      config.jwtSecret,
+      { expiresIn: "1h" }
+    );
+
+    res.status(201).json({ user: savedUser, token });
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ error: "Internal Server Error" });
