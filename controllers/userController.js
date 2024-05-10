@@ -5,12 +5,12 @@ const config = require("../config/config");
 
 exports.registerUser = async (req, res) => {
   try {
-    const { name, password, isAdmin } = req.body;
+    const { email, password, isAdmin } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new userModel({
-      name,
+      email,
       password: hashedPassword,
       isAdmin: isAdmin || false,
     });
@@ -25,9 +25,9 @@ exports.registerUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    const { name, password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await userModel.findOne({ name });
+    const user = await userModel.findOne({ email });
 
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
