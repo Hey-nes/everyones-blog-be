@@ -44,6 +44,9 @@ exports.updateComment = async (req, res) => {
 };
 
 exports.deleteComment = async (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ error: "Unauthorized access" });
+  }
   try {
     await commentService.deleteComment(req.params.id);
     res.status(204).end();
