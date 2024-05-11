@@ -44,13 +44,19 @@ exports.updateComment = async (req, res) => {
 };
 
 exports.deleteComment = async (req, res) => {
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ error: "Unauthorized access" });
-  }
   try {
-    await commentService.deleteComment(req.params.id);
+    const commentId = req.params.id;
+    const response = await axios.delete(
+      `https://everyones-blog-be.vercel.app/api/comments/${commentId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log("Comment deleted successfully");
+    fetchPostComments();
     res.status(204).end();
   } catch (error) {
+    console.error("Error deleting comment", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

@@ -40,9 +40,6 @@ exports.updatePost = async (req, res) => {
 };
 
 exports.deletePost = async (req, res) => {
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ error: "Unauthorized access" });
-  }
   try {
     await postService.deletePost(req.params.id);
     res.status(204).end();
