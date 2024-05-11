@@ -46,17 +46,12 @@ exports.updateComment = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   try {
     const commentId = req.params.id;
-    const response = await axios.delete(
-      `https://everyones-blog-be.vercel.app/api/comments/${commentId}`,
-      {
-        withCredentials: true,
-      }
-    );
+    await commentService.deleteComment(commentId);
     console.log("Comment deleted successfully");
-    fetchPostComments();
     res.status(204).end();
   } catch (error) {
     console.error("Error deleting comment", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
