@@ -9,6 +9,9 @@ router.post("/api/users/login", userController.loginUser);
 router.post("/api/users/register", userController.registerUser);
 
 // Route to fetch all users
-router.get("/api/users", userController.getUsers)
+router.get("/api/users", userController.getUsers);
+
+// Route to get user data
+router.get("/api/users/data", userController.getUserData);
 
 module.exports = router;
